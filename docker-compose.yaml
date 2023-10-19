@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  keycloak:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 8000:8000
+    volumes:
+      - ./dev-env/keycloak/cert:/opt/keycloak/conf
+      - ./dev-env/keycloak/cert:/etc/keystore
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloak
+    ports:
+      - 5432:5432
+    volumes:
+      - ./dev-env/postgresql:/var/lib/postgresql/data
+      - ./dev-env/postgresql-init/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
