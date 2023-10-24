@@ -11,3 +11,8 @@ Custom providers for:
 
 Explore:
 - Keycloak v22
+
+
+## Add
+- When login is performed, publish rabbitmq message
+- Create some small user service so we can manage users
