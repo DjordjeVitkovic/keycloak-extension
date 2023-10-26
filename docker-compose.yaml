@@ -4,6 +4,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      RMQ_URL: amqp-broker
+      RMQ_USERNAME: guest
+      RMQ_PASSWORD: guest
     ports:
       - 8080:8080
       - 8000:8000
@@ -23,3 +27,8 @@ services:
     volumes:
       - ./dev-env/postgresql:/var/lib/postgresql/data
       - ./dev-env/postgresql-init/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  amqp-broker:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
