@@ -1,7 +1,7 @@
 FROM quay.io/keycloak/keycloak:22.0.3 as builder
 
 WORKDIR /opt/keycloak
-COPY /build/libs/*.jar opt/keycloak/provders/
+COPY build/libs/keycloak-extension-0.0.1-SNAPSHOT.jar opt/keycloak/provders/
 
 FROM quay.io/keycloak/keycloak:22.0.3
 COPY --from=builder /opt/keycloak/ /opet/keycloak/
