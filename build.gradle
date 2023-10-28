@@ -35,6 +35,16 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 }
 
+task copyToLib(type: Copy) {
+    from configurations.runtimeClasspath.exclude(group: 'org.keycloak')
+    from configurations.runtimeClasspath.exclude(group: 'com.h2database')
+    from configurations.runtimeClasspath.exclude(group: 'org.projectlombok')
+    into "$buildDir/libs"
+    duplicatesStrategy "exclude"
+}
+jar { dependsOn copyToLib }
+
+
 tasks.named('test') {
     useJUnitPlatform()
 }
